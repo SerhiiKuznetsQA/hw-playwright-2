@@ -1,0 +1,7 @@
+{
+  "title": "Introduction",
+  "description": "A concise overview of how encapsulation improves structure and maintainability in Playwright test automation.",
+  "bodyArticle": "Encapsulation in Playwright refers to organizing test logic by separating UI interactions from the test cases themselves. This approach brings several key benefits: - Readability: Test files become cleaner and more focused on what is being tested. - Reusability: Common actions and selectors can be reused across multiple test cases. - Maintainability: When the UI changes, only the encapsulated components need to be updated. By grouping related functionality into dedicated modules or objects, teams can reduce duplication and isolate complexity. Encapsulation is a core principle in building robust, scalable, and maintainable Playwright test frameworks.",
+  "tag": "playwright"
+}
+
