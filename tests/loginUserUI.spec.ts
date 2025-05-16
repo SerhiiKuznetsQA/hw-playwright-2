@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { getAuthData } from '../helper';
 import { LoginPage } from '../pages/LoginPage';
 
-test('auth via ui basic scenario', async({page})=>{
+test('SK-10 auth via ui basic scenario', async({page})=>{
 
   const authData = getAuthData()
 
@@ -12,16 +12,12 @@ test('auth via ui basic scenario', async({page})=>{
   await page.click('//button')
   await expect(page.locator('a[href="/@serhioramose/"]')).toBeVisible();
   await expect(page.locator(`.navbar:first-of-type a[href="/@serhioramose/"]`)).toBeVisible()
-
-  // await page.waitForSelector('.nav-item:first-of-type a[href="/@sergio/"]', { state: 'visible' });
-  // await expect(page.locator(".nav-item:first-of-type a[href='/@sergio/']")).toBeVisible();
 })
 
 
 
-test("auth use POM model", async({page})=>{
+test("SK-11 auth use POM model",{tag:"@login"}, async({page})=>{
   const loginPage = new LoginPage(page)
-
   await loginPage.navigateTo()
   await loginPage.login()
   await expect(page.locator(`.navbar:first-of-type a[href="/@serhioramos/"]`)).toBeVisible()

@@ -1,12 +1,10 @@
 import test, { expect } from "@playwright/test"
-import { LoginPage } from "../pages/LoginPage"
 import { CreaTeArticlePage } from "../pages/CreateArticlePage"
-import { Aircraft } from "@faker-js/faker"
 
 test.use({storageState:'./.auth/user.json'})
 
 
-test ("use storage state" , async ({page})=>{
+test ("SK-11 use storage state" , async ({page})=>{
 
     await page.goto('https://demo.learnwebdriverio.com/editor/')
     await page.locator(`a[href='/editor']`).click()
@@ -25,22 +23,16 @@ test ("use storage state" , async ({page})=>{
     await page.locator(`input[data-qa-id="editor-tags"]`).fill("SK_TAG")
     await page.keyboard.press("Enter")
     await page.locator(`button[type='submit'][data-qa-id="editor-publish"]`).click()
-    // await page.waitForSelector(`textarea[spellcheck='true']`)
-   
-    // await expect(page.getByRole('group').first()).toBeVisible()
-
 })
 
 
 
-test("new article should be create POM ", async ({page})=>{
+test("SK-12 new article should be create  via POM ", {tag:"@createArticle"},async ({page})=>{
     const articlePage = new CreaTeArticlePage(page)
     await articlePage.navigateTo()
-    console.log(articlePage);
     const articleData = await articlePage.createArticle()
     const articleTitleData = articleData.title
-    const articleTitleforMatch = await articlePage.articleTitle.textContent()
-    expect(articleTitleData).toBe(articleTitleforMatch)
-    console.log(page.url);
-    expect(articlePage).not.toBe(page.url)
+    const articleTitleFromPage = await articlePage.articleTitle.textContent()
+    expect(articleTitleData).toBe(articleTitleFromPage)
+    expect(page.url()).toContain(articleTitleData.toLocaleLowerCase())
 })

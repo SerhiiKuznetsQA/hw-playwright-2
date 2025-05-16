@@ -9,7 +9,7 @@ export class CreaTeArticlePage {
     titleInput:Locator;
     descriptionInput:Locator;
     fontStyleBtn:Locator;
-    bodyArticle:Locator;
+    content:Locator;
     readContentArticle:Locator;
     tagInpt:Locator;
     publishBtn:Locator;
@@ -22,8 +22,8 @@ export class CreaTeArticlePage {
         this.formArticle = page.getByRole('group').first()
         this.titleInput = page.locator(`input[data-qa-id="editor-title"]`)
         this.descriptionInput = page.locator(`input[data-qa-id="editor-description"]`)
-        this.fontStyleBtn = page.locator(`button[class="op-icon fa fa-mavon-italic"]`)
-        this.bodyArticle = page.locator(`textarea[spellcheck='false']`)
+        this.fontStyleBtn = page.locator(`button[class*="fa-mavon-italic"]`)
+        this.content = page.locator(`textarea[spellcheck='false']`)
         this.readContentArticle = page.locator(`div[class*="v-note-read-content"]`)
         this.tagInpt = page.locator(`input[data-qa-id="editor-tags"]`)
         this.publishBtn = page.locator(`button[type='submit'][data-qa-id="editor-publish"]`)
@@ -35,7 +35,6 @@ export class CreaTeArticlePage {
     
     }
 
-
     async createArticle(){
         const articleData = getArticleData()
         await this.newArticLeBtn.click()
@@ -44,10 +43,10 @@ export class CreaTeArticlePage {
         await this.descriptionInput.click()
         await this.descriptionInput.fill(articleData.description)
         await this.fontStyleBtn.click()
-        await this.bodyArticle.click()
-        await this.bodyArticle.focus()
-        await this.bodyArticle.clear()
-        await this.bodyArticle.fill(articleData.bodyArticle)
+        await this.content.click()
+        await this.content.focus()
+        await this.content.clear()
+        await this.content.fill(articleData.bodyArticle)
         await this.tagInpt.click()
         await this.tagInpt.fill(articleData.tag)
         await this.page.keyboard.press('Enter')
@@ -56,6 +55,6 @@ export class CreaTeArticlePage {
         return articleData
     }
 
-
+//розбити на більше методів по інпутам
 
 }
