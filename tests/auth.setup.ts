@@ -5,7 +5,8 @@ test("setup storage State",{tag:"@authToken"}, async({page,context})=>{
   const loginPage = new LoginPage(page)
   const cookieFilePath = './.auth/user.json'
   await loginPage.navigateTo()
-  await loginPage.login()
-  await expect(page.locator(`.navbar:first-of-type a[href="/@serhioramos/"]`)).toBeVisible()
+  const userAuthData = await loginPage.login()
+  const userName = userAuthData.userName
+  await expect(page.locator(`.navbar:first-of-type a[href="/@${userName}/"]`)).toBeVisible()
   await context.storageState({path:cookieFilePath})
 })

@@ -1,5 +1,5 @@
 import { Page } from "@playwright/test";
-import { getAuthData } from "../helper";
+import { getAuthData, setUserData } from "../helper";
 
 export class LoginPage{
     private page:Page;
@@ -12,9 +12,12 @@ export class LoginPage{
     }
 
     async login(){
+        // const authData = getAuthData()
         const authData = getAuthData()
         await this.page.locator(`input[type='email']`).fill(authData.email)
         await this.page.locator(`input[type='password']`).fill(authData.password)
         await this. page.click('//button')
+
+        return authData
     }
 }

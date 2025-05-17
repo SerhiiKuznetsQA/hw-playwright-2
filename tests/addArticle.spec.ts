@@ -1,7 +1,7 @@
 import test, { expect } from "@playwright/test"
 import { CreaTeArticlePage } from "../pages/CreateArticlePage"
 
-test.use({storageState:'./.auth/user.json'})
+// test.use({storageState:'./.auth/user.json'})
 
 
 test ("SK-11 use storage state" , async ({page})=>{

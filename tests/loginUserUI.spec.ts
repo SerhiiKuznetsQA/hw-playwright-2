@@ -19,6 +19,8 @@ test('SK-10 auth via ui basic scenario', async({page})=>{
 test("SK-11 auth use POM model",{tag:"@login"}, async({page})=>{
   const loginPage = new LoginPage(page)
   await loginPage.navigateTo()
-  await loginPage.login()
-  await expect(page.locator(`.navbar:first-of-type a[href="/@serhioramos/"]`)).toBeVisible()
+  const userAuthData = await loginPage.login()
+  console.log(userAuthData);
+  const userLogin = userAuthData.userName.toLocaleLowerCase()
+  await expect(page.locator(`.navbar:first-of-type a[href="/@${userLogin}/"]`)).toBeVisible()
 })

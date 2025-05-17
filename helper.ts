@@ -1,5 +1,6 @@
 import fs from 'fs';
 import { title } from 'process';
+import { faker } from '@faker-js/faker';
 
 export function getAuthData(){
     const filePath = "login-data.json"
@@ -25,4 +26,17 @@ export function getArticleData(){
         bodyArticle:jsonData.bodyArticle as string,
         tag:jsonData.tag as string,
     }
+}
+
+
+export function setUserData(){
+    const filePath="login-data.json"
+    const userObj  = {
+    "userName" : faker.person.firstName().toLocaleLowerCase() as string,
+    "email": faker.internet.email().toLocaleLowerCase() as string,
+    "password" : faker.internet.password() as string
+    }
+    fs.writeFileSync(filePath, JSON.stringify(userObj, null, 2), 'utf-8');
+
+    return userObj
 }

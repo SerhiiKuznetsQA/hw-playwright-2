@@ -1,4 +1,5 @@
 import { Page , Locator} from "@playwright/test";
+import { setUserData } from "../helper";
 
 
 export class RegisterPage {
@@ -22,14 +23,17 @@ export class RegisterPage {
         await this.page.goto('https://demo.learnwebdriverio.com/register')
     }
 
-    async register(userName,email,password){
-        
+    async register(){
+        const userObj = setUserData()
         await this.usernameInput.click()
-        await this.usernameInput.fill(userName)
+        await this.usernameInput.fill(userObj.userName)
         await this.emailInput.click()
-        await this.emailInput.fill(email)
+        await this.emailInput.fill(userObj.email)
         await this.passwordInput.click()
-        await this.passwordInput.fill(password)
+        await this.passwordInput.fill(userObj.password)
         await this.singUpButton.click()
+
+        return userObj
     }
+    
 }
