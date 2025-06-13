@@ -12,7 +12,7 @@ export class LoginPage{
     }
 
     async login(){
-        // const authData = getAuthData()
+
         const authData = getAuthData()
         await this.page.locator(`input[type='email']`).fill(authData.email)
         await this.page.locator(`input[type='password']`).fill(authData.password)

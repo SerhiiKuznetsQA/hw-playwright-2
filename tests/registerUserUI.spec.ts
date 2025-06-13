@@ -18,15 +18,9 @@ test('test', async ({ page }) => {
 });
 
 test('SK-9 register user uses POM via UI',{tag:"@auth"}, async ({page})=>{
-  // test.use({ storageState: undefined })
   const registerPage = new RegisterPage(page)
-  // const userName = faker.person.firstName().toLocaleLowerCase();
-  // console.log(userName);
-  // const email = faker.internet.email();
-  // const password = faker.internet.password();
   await registerPage.navigateTo()
-  const userData = await registerPage.register()
+  const userData = await registerPage.registerUserValidCredential()
   const accountName = await userData.userName.toLocaleLowerCase()
-  // console.log(userName2);
   await expect(page.locator(`.navbar:first-of-type a[href="/@${accountName}/"]`)).toBeVisible()
 })

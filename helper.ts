@@ -23,9 +23,27 @@ export function getArticleData(){
     return {
         title:jsonData.title  as string ,
         description:jsonData.description  as string,
-        bodyArticle:jsonData.bodyArticle as string,
+        bodyArticle:jsonData.content as string,
         tag:jsonData.tag as string,
     }
+}
+
+
+
+
+export function getArticlesDataForLoop() {
+    const filePath = "article-data-for-loop.json"
+    const rawData = fs.readFileSync(filePath)
+    const jsonData = JSON.parse(rawData.toString())
+    const articles = jsonData.articles.map((article: any) => ({
+        id: article.id as number,
+        title: article.title as string,
+        description: article.description as string,
+        bodyArticle: article.content as string,
+        tag:article.tag as string
+    }))
+
+    return { articles }
 }
 
 

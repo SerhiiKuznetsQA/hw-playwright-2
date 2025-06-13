@@ -23,7 +23,7 @@ export class RegisterPage {
         await this.page.goto('https://demo.learnwebdriverio.com/register')
     }
 
-    async register(){
+    async registerUserValidCredential(){
         const userObj = setUserData()
         await this.usernameInput.click()
         await this.usernameInput.fill(userObj.userName)

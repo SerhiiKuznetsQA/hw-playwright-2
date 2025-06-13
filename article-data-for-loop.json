@@ -1,0 +1,24 @@
+{"articles" :[
+  {
+    "id": 1,
+    "title": "Introduction",
+    "description": "A concise overview of how encapsulation improves structure and maintainability in Playwright test automation.",
+    "content": "Encapsulation in Playwright refers to organizing test logic by separating UI interactions from the test cases themselves. This approach brings several key benefits: - Readability: Test files become cleaner and more focused on what is being tested. - Reusability: Common actions and selectors can be reused across multiple test cases. - Maintainability: When the UI changes, only the encapsulated components need to be updated. By grouping related functionality into dedicated modules or objects, teams can reduce duplication and isolate complexity. Encapsulation is a core principle in building robust, scalable, and maintainable Playwright test frameworks.",
+    "tag": "playwright"
+  },
+  {
+    "id": 2,
+    "title": "Leveraging",
+    "description": "How inheritance helps extend base functionality across multiple Playwright page objects for better reusability.",
+    "content": "Inheritance in Playwright test frameworks allows teams to define common functionality in a base class and then extend it in more specific page object classes. This pattern promotes reusability and simplifies code updates. For example, a `BasePage` class might include shared methods like navigation, login, or waitForElement, which other page classes can inherit and enhance. This structure minimizes code duplication and keeps test logic consistent across various parts of the application.",
+    "tag": "playwright"
+  },
+  {
+    "id":3,
+    "title": "Polymorphism",
+    "description": "Demonstrating how polymorphism supports interchangeable and scalable test logic in Playwright.",
+    "content": "Polymorphism allows Playwright test components to share a common interface while implementing different behaviors. For example, different types of form components (e.g., text input, dropdown, radio button) can implement a shared interface like `fillField()`, allowing test scripts to interact with them uniformly without knowing the exact implementation. This abstraction enables flexibility, simplifies test code, and makes it easier to scale the test framework as the application grows.",
+    "tag": "playwright"
+  }
+]
+}

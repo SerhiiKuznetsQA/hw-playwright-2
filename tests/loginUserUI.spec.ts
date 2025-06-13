@@ -2,6 +2,8 @@ import { test, expect } from '@playwright/test';
 import { getAuthData } from '../helper';
 import { LoginPage } from '../pages/LoginPage';
 
+test.use({storageState:'./.auth/user.json'})
+
 test('SK-10 auth via ui basic scenario', async({page})=>{
 
   const authData = getAuthData()

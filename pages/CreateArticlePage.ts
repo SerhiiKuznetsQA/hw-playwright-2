@@ -1,5 +1,5 @@
 import { Page , Locator, expect} from "@playwright/test";
-import { getArticleData } from "../helper";
+import { getArticleData, getArticlesDataForLoop } from "../helper";
 
 
 export class CreaTeArticlePage {
@@ -11,7 +11,7 @@ export class CreaTeArticlePage {
     fontStyleBtn:Locator;
     content:Locator;
     readContentArticle:Locator;
-    tagInpt:Locator;
+    tagInput:Locator;
     publishBtn:Locator;
     articleTitle:Locator;
 
@@ -25,7 +25,7 @@ export class CreaTeArticlePage {
         this.fontStyleBtn = page.locator(`button[class*="fa-mavon-italic"]`)
         this.content = page.locator(`textarea[spellcheck='false']`)
         this.readContentArticle = page.locator(`div[class*="v-note-read-content"]`)
-        this.tagInpt = page.locator(`input[data-qa-id="editor-tags"]`)
+        this.tagInput = page.locator(`input[data-qa-id="editor-tags"]`)
         this.publishBtn = page.locator(`button[type='submit'][data-qa-id="editor-publish"]`)
         this.articleTitle = page.locator(`h1[data-qa-id="article-title"]`)
     }
@@ -35,26 +35,29 @@ export class CreaTeArticlePage {
     
     }
 
-    async createArticle(){
-        const articleData = getArticleData()
+    async createArticle(article){
         await this.newArticLeBtn.click()
         await this.titleInput.click()
-        await this.titleInput.fill(articleData.title)
+        await this.titleInput.fill(article.title)
         await this.descriptionInput.click()
-        await this.descriptionInput.fill(articleData.description)
+        await this.descriptionInput.fill(article.description)
         await this.fontStyleBtn.click()
         await this.content.click()
         await this.content.focus()
         await this.content.clear()
-        await this.content.fill(articleData.bodyArticle)
-        await this.tagInpt.click()
-        await this.tagInpt.fill(articleData.tag)
+        await this.content.fill(article.bodyArticle)
+        await this.tagInput.click()
+        await this.tagInput.fill(article.tag)
         await this.page.keyboard.press('Enter')
         await this.publishBtn.click()
 
-        return articleData
+        // return articleData
     }
+
+
 
 //розбити на більше методів по інпутам
 
 }
+
+

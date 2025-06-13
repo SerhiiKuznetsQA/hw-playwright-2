@@ -1,7 +1,9 @@
 import test, { expect } from "@playwright/test"
 import { CreaTeArticlePage } from "../pages/CreateArticlePage"
+import { getArticlesDataForLoop } from "../helper"
+import { TIMEOUT } from "dns"
 
-// test.use({storageState:'./.auth/user.json'})
+test.use({storageState:'./.auth/user.json'})
 
 
 test ("SK-11 use storage state" , async ({page})=>{
@@ -26,13 +28,14 @@ test ("SK-11 use storage state" , async ({page})=>{
 })
 
 
-
-test("SK-12 new article should be create  via POM ", {tag:"@createArticle"},async ({page})=>{
+test("SK-13 new articles should be create from JsonData" , {tag:"@createArticles"},async({page})=>{
     const articlePage = new CreaTeArticlePage(page)
     await articlePage.navigateTo()
-    const articleData = await articlePage.createArticle()
-    const articleTitleData = articleData.title
-    const articleTitleFromPage = await articlePage.articleTitle.textContent()
-    expect(articleTitleData).toBe(articleTitleFromPage)
-    expect(page.url()).toContain(articleTitleData.toLocaleLowerCase())
+    const articlesData = getArticlesDataForLoop()
+    for (const article of articlesData.articles) {
+        await articlePage.createArticle(article)
+        const articleFromPage = await articlePage.articleTitle.textContent()
+        expect(article.title).toBe(articleFromPage)
+        expect(page.url()).toContain(article.title.toLocaleLowerCase())
+    }
 })
