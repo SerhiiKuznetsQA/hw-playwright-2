@@ -34,21 +34,15 @@ How to run
 Clone the repository:
 
 bash
-Копировать
-Редактировать
 git clone https://github.com/SerhiiKuznetsQA/hw-playwright-2.git
 cd hw-playwright-2
 Install dependencies:
 
 bash
-Копировать
-Редактировать
 npm install
 Run tests:
 
 bash
-Копировать
-Редактировать
 npx playwright test
 Key classes and methods
 HomePage
