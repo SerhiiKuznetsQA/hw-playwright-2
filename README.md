@@ -33,14 +33,24 @@ Files like if-else.js show examples of conditional logic and loops to strengthen
 How to run
 Clone the repository:
 
+
+
+
 bash
 git clone https://github.com/SerhiiKuznetsQA/hw-playwright-2.git
 cd hw-playwright-2
 Install dependencies:
 
+
+
+
 bash
 npm install
 Run tests:
+
+
+
+
 
 bash
 npx playwright test
@@ -57,5 +67,9 @@ Locators for homepage elements including article lists and popular tags
 
 A method feedObj() returns an array of article texts used for assertions in tests
 
-Tests
+
+
+
+
+Tests :
 Each test instantiates HomePage, performs navigation, interacts with tags, and verifies that displayed articles correspond to the selected tag. Some tests use loops to iterate through articles and validate conditions.

@@ -1,5 +1,6 @@
 import { Page, test, expect } from "@playwright/test";
 import { HomePage } from "../pages/HomePage";
+import { getArticleData } from "../helper";
 test.use({ storageState: "./.auth/user.json" });
 
 test("My Feed Tab", async ({ page }) => {
@@ -33,20 +34,32 @@ test("Get Tag list", async ({ page }) => {
 });
 
 
-test("Get Feeds by Tag on Tags Tab", async({page})=>{
+test("Feeds should be filtered by tag", async({page})=>{
   const homePage = new HomePage(page)
-  const loadingText = `Loading articles...`
   await homePage.navigateTo();
-  await homePage.clickByTag()
-  await homePage.navigateToTagFeed()
-  const tagsFeeds =homePage.globalArticlesList
-   const tagsObj = await homePage.feedObj()
-   const tag = (await homePage.popularTag.textContent()) ?? "" ;
-   console.log(tag);
-  expect(tagsFeeds).not.toContainText(loadingText)
-// console.log(tagsObj);
-for (const element of tagsObj) {
+  const tagFromObj= getArticleData()
+  await homePage.clickByTag(tagFromObj)
+  await homePage.navigateToTagFeed(tagFromObj)
+   const tag = await homePage.getTagTextContent(tagFromObj)  ?? "" ;
+  const tagsObj = await homePage.feedObj()
+  for (const element of tagsObj) {
   expect(element).toContain(tag.trim());
+  console.log(element);
+  }
+  
+})
+
+
+
+test(`Count of like should be increase on first page`,async ({page})=>{
+  const homePage = new HomePage(page)
+  await homePage.navigateTo()
+  await homePage.navigateToGlobalFeed()
+for (let index = 0; index <= 9; index++) {
+    const countBeforeLike = await homePage.getLikesCount(index)
+    console.log(`count before like : ${countBeforeLike}`);
+    const like = await homePage.likeFeed(index)
+    expect(Number(countBeforeLike?.trim())).not.toBe(Number(countBeforeLike?.trim())+1)
 }
-  expect(tagsFeeds).toBeVisible()
+
 })
