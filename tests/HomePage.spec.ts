@@ -21,10 +21,12 @@ test("Global Feed Tab", async ({ page }) => {
 
 test("Get Tag list", async ({ page }) => {
   const homePage = new HomePage(page);
+  const tagFromObj= getArticleData()
   await homePage.navigateTo();
-  await homePage.clickByTag();
-  const tag = await homePage.popularTag.textContent();
-  const tagFeeds = homePage.globalArticlesList;
+  await homePage.clickByTag(tagFromObj)
+  await homePage.navigateToTagFeed(tagFromObj)
+   const tag = await homePage.getTagTextContent(tagFromObj)  ?? ""
+  const tagFeeds = homePage.globalArticlesList.nth(1);
   console.log(tag);
   console.log(page.url());
   await expect(tagFeeds).toBeVisible();
