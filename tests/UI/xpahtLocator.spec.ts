@@ -22,9 +22,6 @@ test.beforeEach(async ({ browser }) => {
   await page.goto(`https://demoqa.com/checkbox`);
 });
 
-
-
-
 test("get locator from label attribute", async () => {
   await page
     .locator(`//label[.//span[text()="Home"]]/parent::span/button`)
@@ -38,8 +35,10 @@ test("get locator from label attribute", async () => {
   //   .locator(`//label[.//span[text()="Desktop"]]//parent::span/button`)
   //   .click();
 
-  // await page.locator(`//label[.//span[text()="Desktop"]]//parent::span/button`).click() // fix that locator , shoulbe click on the Arrow 
-  await page.locator(`//label[.//span[text()="Desktop"]]/parent::span/button`).click()
+  // await page.locator(`//label[.//span[text()="Desktop"]]//parent::span/button`).click() // fix that locator , shoulbe click on the Arrow
+  await page
+    .locator(`//label[.//span[text()="Desktop"]]/parent::span/button`)
+    .click();
   await page.locator(`//label[.//span[text()="Notes"]]`).click();
 
   const spanInfo = await page
@@ -55,9 +54,12 @@ test("get locator from label attribute", async () => {
       `//span[text()="Commands"]/preceding-sibling::span[@class="rct-checkbox"]`
     )
     .click();
-    
-     await expect(
-    page.locator(`//div[@id='result']`)).toBeVisible();// проверить, что результат соотвествуеют прокликаным документам
-    const resultArray = await page.locator(`//div[contains(@id,'result')]/span[contains(@class,'text-success')]`).allTextContents()
-    console.log(resultArray);
+
+  await expect(page.locator(`//div[@id='result']`)).toBeVisible(); // проверить, что результат соотвествуеют прокликаным документам
+  const resultArray = await page
+    .locator(
+      `//div[contains(@id,'result')]/span[contains(@class,'text-success')]`
+    )
+    .allTextContents();
+  console.log(resultArray);
 });
