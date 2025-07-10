@@ -1,15 +1,30 @@
-import { test as baseTest, expect } from "@playwright/test";
-import { getAuthData, getTokenAuth, setUserData } from "../../helper";
+import { test as baseTest, expect, request } from "@playwright/test";
+import { getAuthData, getTokenAuth, setUserData } from "../../../helper";
 import fs from "fs";
-import { UserController } from "./users/UserController";
-import { UserResponse } from "./users/UserTypes";
+import { UserController } from "../users/UserController";
+import { UserResponse } from "../users/UserTypes";
+import { ArticleController } from "../ArticleController/ArticleController";
 export * from "@playwright/test";
 
-type Fixture = {
+type ApiController = {
   token: string;
+  userController: UserController;
+  articleController: ArticleController;
 };
 
-export const test = baseTest.extend<Fixture>({
+export const test = baseTest.extend<ApiController>({
+  userController: async ({ request }, use) => {
+    const userController = new UserController(request);
+
+    await use(userController);
+  },
+
+  articleController: async ({ request }, use) => {
+    const articleController = new ArticleController(request);
+
+    await use(articleController);
+  },
+
   token: async ({ request }, use) => {
     const userAuthData = getAuthData();
     const tokeFilePath = `.auth/token_${userAuthData.userName}.json`;

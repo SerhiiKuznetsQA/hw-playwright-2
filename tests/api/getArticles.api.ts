@@ -5,7 +5,7 @@ import {
   getAuthData,
   setUserData,
 } from "../../helper";
-import { test } from "./fixture";
+import { test } from "./fixture/fixture";
 import { ArticleController } from "./ArticleController/ArticleController";
 import { Article, ArticlesResponse } from "./ArticleController/ArticleTypes";
 
@@ -59,8 +59,7 @@ test("login as existed user - should get token ", async ({ request }) => {
 test(
   "create article - should be created",
   { tag: "@createArticle" },
-  async ({ request, token }) => {
-    const articleController = new ArticleController(request);
+  async ({ token, articleController }) => {
     const getArtData = getArticleData();
     const requestBody: Article = {
       title: getArtData.title,
@@ -80,8 +79,7 @@ test(
 test(
   "create articles - should be created 3 articles",
   { tag: "@createArticles" },
-  async ({ request, token }) => {
-    const articleController = new ArticleController(request);
+  async ({ token, articleController }) => {
     const articles = getArticlesDataForLoop();
     for (const item of articles.articles) {
       const requestBody: Article = {
@@ -103,16 +101,15 @@ test(
 test(
   "get articles by title",
   { tag: "@find articles by title" },
-  async ({ request, token }) => {
+  async ({ token, articleController }) => {
     const title = "NEW TITLE UPDATE";
-    const articlesController = new ArticleController(request);
-    const responseArticlesCount = await articlesController.getArticleCount(
+    const responseArticlesCount = await articleController.getArticleCount(
       token
     );
     let counterOfArticlesByTitle = 0;
-    let articlesMatch = [];
+    let articlesMatch: Article[] = [];
     for (let index = 0; index <= responseArticlesCount; index += 10) {
-      const responseArticle = await articlesController.getArticleByTitle(
+      const responseArticle = await articleController.getArticleByTitle(
         token,
         title,
         index
@@ -123,6 +120,6 @@ test(
         articlesMatch.push(...responseArticle);
       }
     }
-    await expect(counterOfArticlesByTitle).toBeGreaterThan(0);
+    expect(counterOfArticlesByTitle).toBeGreaterThan(0);
   }
 );

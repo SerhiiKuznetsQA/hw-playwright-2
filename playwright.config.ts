@@ -44,10 +44,18 @@ export default defineConfig({
       // dependencies:['setup'],
     },
 
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
+    {
+      name: "api",
+      use: {},
+      testDir: "tests/api/",
+      testMatch: "**/*.@(api).?(c|m)[jt]s?(x)",
+    },
+    {
+      name: "UI",
+      use: {},
+      testDir: "tests/UI/",
+      testMatch: "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+    },
 
     // {
     //   name: 'webkit',
