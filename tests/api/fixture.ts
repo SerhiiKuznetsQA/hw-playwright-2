@@ -1,15 +1,8 @@
-import {
-  APIResponse,
-  test as baseTest,
-  expect,
-  request,
-} from "@playwright/test";
-
+import { test as baseTest, expect } from "@playwright/test";
 import { getAuthData, getTokenAuth, setUserData } from "../../helper";
 import fs from "fs";
 import { UserController } from "./users/UserController";
 import { UserResponse } from "./users/UserTypes";
-
 export * from "@playwright/test";
 
 type Fixture = {

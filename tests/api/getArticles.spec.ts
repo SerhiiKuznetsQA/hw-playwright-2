@@ -3,15 +3,11 @@ import {
   getArticleData,
   getArticlesDataForLoop,
   getAuthData,
-  getTokenAuth,
   setUserData,
 } from "../../helper";
 import { test } from "./fixture";
-import { UserController } from "./users/UserController";
 import { ArticleController } from "./ArticleController/ArticleController";
-import { UserResponse } from "./users/UserTypes";
-import { Article } from "./ArticleController/ArticleTypes";
-import { register } from "module";
+import { Article, ArticlesResponse } from "./ArticleController/ArticleTypes";
 
 // test.use({ userEmail: "gaetano55@gmail.com" });
 
@@ -101,5 +97,32 @@ test(
       );
       await expect(response).toBeOK();
     }
+  }
+);
+
+test(
+  "get articles by title",
+  { tag: "@find articles by title" },
+  async ({ request, token }) => {
+    const title = "NEW TITLE UPDATE";
+    const articlesController = new ArticleController(request);
+    const responseArticlesCount = await articlesController.getArticleCount(
+      token
+    );
+    let counterOfArticlesByTitle = 0;
+    let articlesMatch = [];
+    for (let index = 0; index <= responseArticlesCount; index += 10) {
+      const responseArticle = await articlesController.getArticleByTitle(
+        token,
+        title,
+        index
+      );
+
+      if (responseArticle.length > 0) {
+        counterOfArticlesByTitle += responseArticle.length;
+        articlesMatch.push(...responseArticle);
+      }
+    }
+    await expect(counterOfArticlesByTitle).toBeGreaterThan(0);
   }
 );
